@@ -1,13 +1,195 @@
-<!doctype html>
-<title>Soy un HTML</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-snackbar@latest/dist/snackbar.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Give me a Review</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
 
-<style>
-    body {
-        background: salmon
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-top: 50px;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 1.25em;
+            margin-bottom: 20px;
+        }
+        h4{
+            text-align: center;
+        }
+
+        header {
+            padding: 30px;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #42281C;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
     }
-</style>
 
-<h1>Contenido Web</h1>
-<p>Yo soy un <b>HTML</b></p>
+        svg{
+        margin-right: 15px;
 
-<button onclick="alert('me apretaste')">Apretame</button>
+        }
+
+        .review-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .star {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 20px;
+        }
+
+        .star.active .stararea {
+            color: #f1c40f;
+        }
+
+        .stararea {
+            font-size: 3em;
+            text-align: center;
+            line-height: 50px;
+            color: grey;
+        }
+
+        @keyframes staranimation {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+                top: -1px;
+            }
+        }
+
+        @keyframes starbackground {
+            0% {
+                color: #aaaaaa;
+            }
+            100% {
+                color: #f1c40f;
+            }
+        }
+
+        snackbar{
+        display: flex;
+        justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<h3>Tranquil Treehouse Escape 1313</h3>
+<h1>Hey! ... Give us a Review</h1>
+<h4>if you want of course...</h4>
+
+<header>
+    <h3>Between 1 - 5 , <br> Would you recommend us?</h3>
+    <div class="review-container">
+        <button class="star" data-rating="1"><span class="stararea">★</span></button>
+        <button class="star" data-rating="2"><span class="stararea">★</span></button>
+        <button class="star" data-rating="3"><span class="stararea">★</span></button>
+        <button class="star" data-rating="4"><span class="stararea">★</span></button>
+        <button class="star" data-rating="5"><span class="stararea">★</span></button>
+    </div>
+    <br>
+
+    <button type="submit" onclick="alert('showSnackbar') ; resetStars()" class="button-container">
+        <svg width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.36328 12.0523C4.01081 11.5711 3.33457 11.3304 3.13309 10.9655C2.95849 10.6492 2.95032 10.2673 3.11124 9.94388C3.29694 9.57063 3.96228 9.30132 5.29295 8.76272L17.8356 3.68594C19.1461 3.15547 19.8014 2.89024 20.2154 3.02623C20.5747 3.14427 20.8565 3.42608 20.9746 3.7854C21.1106 4.19937 20.8453 4.85465 20.3149 6.16521L15.2381 18.7078C14.6995 20.0385 14.4302 20.7039 14.0569 20.8896C13.7335 21.0505 13.3516 21.0423 13.0353 20.8677C12.6704 20.6662 12.4297 19.99 11.9485 18.6375L10.4751 14.4967C10.3815 14.2336 10.3347 14.102 10.2582 13.9922C10.1905 13.8948 10.106 13.8103 10.0086 13.7426C9.89876 13.6661 9.76719 13.6193 9.50407 13.5257L5.36328 12.0523Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        Submit
+    </button>
+
+</header>
+
+<script>
+        const showToast = () => {
+        window.android.showToast();
+        };
+
+        const showSnackbar = () => {
+        window.android.showSnackbar("Thank you for your feedback!");
+        };
+
+
+        function resetStars() {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => star.classList.remove('active'));
+        };
+
+        const stars = document.querySelectorAll('.star');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = star.dataset.rating;
+                stars.forEach(star => {
+                    star.classList.remove('active');
+                    if (star.dataset.rating <= rating) {
+                        star.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        function showSnack() {
+  // Get the Snackbar element
+  const snackbar = document.getElementById("snackbar");
+
+  // Show the Snackbar with desired message
+  snackbar.textContent = "Your feedback has been submitted!";
+  snackbar.classList.add("mdc-snackbar--show");
+
+  // Optionally, set a timeout to hide the Snackbar automatically
+  setTimeout(() => {
+    snackbar.classList.remove("mdc-snackbar--show");
+  }, 3000);
+}
+
+
+function showAndHideSnackbar() {
+      // Your library's function to show the Snackbar (replace with actual code)
+      showSnack("Your feedback has been submitted!");
+
+      // Set timeout to hide after 3 seconds (adjust as needed)
+      setTimeout(() => {
+        // Your library's function to hide the Snackbar (replace with actual code)
+        hideSnackbar();
+      }, 3000);
+    }
+    </script>
+</body>
+</html>

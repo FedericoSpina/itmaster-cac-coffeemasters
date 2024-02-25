@@ -25,12 +25,42 @@ class DataManager: ViewModel() {
     }
 
     fun cartAdd(product: Product) {
-        //TODO: Falta verificar si el producto ya está en el carrito y sumarle uno
-        cart = cart + ItemInCart(product, 1)
+        val existingItem = cart.find { it.product == product }
+        if (existingItem != null) {
+            // Product is already in the cart, update quantity
+            cart = cart.map {
+                if (it.product == product) it.copy(quantity = it.quantity + 1)
+                else it
+            }
+        } else {
+            // Product is not in the cart, add a new item
+            cart = cart + ItemInCart(product, 1)
+        }
         println(cart)
     }
 
+
     fun cartRemove(product: Product) {
-        //TODO
+        val existingItem = cart.find { it.product == product }
+        if (existingItem != null) {
+            // Product is in the cart, decrement quantity or remove if quantity is 1
+            if (existingItem.quantity > 1) {
+                cart = cart.map {
+                    if (it.product == product) it.copy(quantity = it.quantity - 1)
+                    else it
+                }
+            } else {
+                // Remove the item from the cart
+                cart = cart.filterNot { it.product == product }
+            }
+        }
+        println(cart)
     }
+
+
+    fun clearCart() {
+        cart = emptyList()
+        println(cart)
+    }
+
 }
