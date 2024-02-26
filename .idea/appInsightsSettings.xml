@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="app.itmaster.mobile.coffeemasters" />
+                  <option name="mobileSdkAppId" value="1:1082484486282:android:05ddee39923bb0376f3d73" />
+                  <option name="projectId" value="coffeemasters-74e8b" />
+                  <option name="projectNumber" value="1082484486282" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
